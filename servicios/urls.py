@@ -1,16 +1,17 @@
-from django.contrib import admin
+#django imports
 from django.urls import path, include
+#rest frameworks imports
 from rest_framework import routers
+#views
 from servicios import views
 
+app_name = 'servicios'
 
 router = routers.DefaultRouter()
-router.register('servicios', views.ServiciosViewSet)
-router.register('entregables', views.EntregablesViewSet)
-router.register('paquetes', views.PaquetesViewSet)
+router.register('servicios', views.ServiciosViewSet, basename='servicio')
+router.register('entregables', views.EntregablesViewSet, basename='entregable')
+router.register('paquetes', views.PaquetesViewSet, basename="paquete")
 
-
-app_name = 'tipos-servicios'
 
 urlpatterns = [
     path('', include(router.urls))

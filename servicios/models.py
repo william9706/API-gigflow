@@ -1,6 +1,5 @@
+#django imports
 from django.db import models
-
-
 
 
 class Entregables(models.Model):
@@ -33,7 +32,6 @@ class Paquetes(models.Model):
     )
 
     precio = models.IntegerField(
-        max_length=100,
         null=True,
         blank=False,
         verbose_name="Precio"

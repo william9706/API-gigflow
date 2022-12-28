@@ -1,4 +1,4 @@
-from django.shortcuts import render
+#rest framework
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 
@@ -22,5 +22,4 @@ class PaquetesViewSet(viewsets.ModelViewSet):
     """ Endpoint para entregables. """
     serializer_class = serializers.PaquetesSerializer
     queryset = models.Paquetes.objects.all()
-    search_fields = ['nombre']
 
