@@ -1,14 +1,15 @@
+#rest frameworks imports
 from rest_framework import serializers
-from servicios import models
-
+#model impoprts
+from servicios.models import Entregables, Paquetes, Servicios
 
 
 
 class EntregableSerializer(serializers.ModelSerializer):
-    """ serializador para tipos de servicio """
+    """ serializador para modelo Entregables """
     
     class Meta:
-        model= models.Entregables
+        model= Entregables
         fields = (
             'id',
             'nombre'
@@ -23,12 +24,12 @@ class EntregableSerializer(serializers.ModelSerializer):
 
 
 class PaquetesSerializer(serializers.ModelSerializer):
-    """ serializador para paquetes. """
+    """ serializador para modelo Paquetes """
 
     entregables = EntregableSerializer(many=True)
 
     class Meta:
-        model= models.Paquetes
+        model= Paquetes
         fields = (
             'id',
             'descripcion',
@@ -40,11 +41,11 @@ class PaquetesSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """ metodo para crear paquetes. """
         entregables = validated_data.pop('entregables', [])      
-        paquete = models.Paquetes.objects.create(**validated_data)
+        paquete = Paquetes.objects.create(**validated_data)
         paquete.save()
 
         for entregable in entregables:
-            entregable_obj = models.Entregables.objects.get(
+            entregable_obj = Entregables.objects.get(
                 nombre=entregable['nombre']
             )
             paquete.entregables.add(entregable_obj)
@@ -57,14 +58,14 @@ class PaquetesSerializer(serializers.ModelSerializer):
         instance = super(PaquetesSerializer, self).update(instance, validated_data)
 
         for entregable_data in entregables_data:
-            entregable_qs = models.Entregables.objects.filter(
+            entregable_qs = Entregables.objects.filter(
                 nombre__iexact=entregable_data['nombre']
             )
 
             if entregable_qs.exists():
                 entregable = entregable_qs.first()
             else:
-                entregable = models.Entregables.objects.create(**entregable_data)
+                entregable = Entregables.objects.create(**entregable_data)
 
             instance.entregables.add(entregable)
 
@@ -83,13 +84,13 @@ class PaquetesSerializer(serializers.ModelSerializer):
 
 
 class ServicioSerializer(serializers.ModelSerializer):
-    """ serializador para tipos de servicio """
+    """ serializador para modelo Servicios """
 
     paquetes = PaquetesSerializer(many=True)
 
 
     class Meta:
-        model= models.Servicios
+        model= Servicios
         fields = (
             'id',
             'nombre',
@@ -100,16 +101,16 @@ class ServicioSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """ metodo para crear servicio. """
         paquetes = validated_data.pop('paquetes', [])
-        servicios = models.Servicios.objects.create(**validated_data)
+        servicios = Servicios.objects.create(**validated_data)
         servicios.save()
 
         for paquete in paquetes:
-            paquete_obj = models.Paquetes.objects.get(
+            paquete_obj = Paquetes.objects.get(
                 descripcion=paquete['descripcion']
             )
             servicios.paquetes.add(paquete_obj)
             for entregable in paquete['entregables']:
-                entregable_obj = models.Entregables.objects.get(
+                entregable_obj = Entregables.objects.get(
                     nombre=entregable['nombre']
                 )
                 paquete_obj.entregables.add(entregable_obj)
@@ -123,24 +124,24 @@ class ServicioSerializer(serializers.ModelSerializer):
         instance = super(ServicioSerializer, self).update(instance, validated_data)
 
         for paquete_data in paquetes_data:
-            paquete_qs = models.Paquetes.objects.filter(
+            paquete_qs = Paquetes.objects.filter(
                 descripcion__iexact=paquete_data['descripcion']
             )
 
             if paquete_qs.exists():
                 paquete = paquete_qs.first()
             else:
-                paquete = models.Paquetes.objects.create(**paquete_data)
+                paquete = Paquetes.objects.create(**paquete_data)
             instance.paquetes.add(paquete)
             
             for entregable in paquete_data['entregables']:
-                entregable_qs = models.Entregables.objects.filter(
+                entregable_qs = Entregables.objects.filter(
                     nombre__iexact=entregable['nombre']
                 ) 
                 if entregable_qs.exists():
                     entregable = entregable_qs.first()
                 else:
-                    entregable = models.Entregables.objects.create(**paquete_data)
+                    entregable = Entregables.objects.create(**paquete_data)
                 paquete.entregables.add(entregable)
 
         return instance
