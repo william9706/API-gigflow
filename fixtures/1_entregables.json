@@ -1,0 +1,37 @@
+[
+    {
+        "model":"servicios.entregables",
+        "pk":1,
+        "fields":{
+            "nombre": "prueba entregable 1"
+        }
+    },
+    {
+        "model":"servicios.entregables",
+        "pk":2,
+        "fields":{
+            "nombre": "prueba entregable 2"
+        }
+    },
+    {
+        "model":"servicios.entregables",
+        "pk":3,
+        "fields":{
+            "nombre": "prueba entregable 3"
+        }
+    },
+    {
+        "model":"servicios.entregables",
+        "pk":4,
+        "fields":{
+            "nombre": "prueba entregable 4"
+        }
+    },
+    {
+        "model":"servicios.entregables",
+        "pk":5,
+        "fields":{
+            "nombre": "prueba entregable 5"
+        }
+    }
+]

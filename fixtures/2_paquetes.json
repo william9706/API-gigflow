@@ -1,0 +1,46 @@
+[
+    {   "model":"servicios.paquetes",
+        "pk": 1,
+        "fields":{
+            "descripcion": "paquete prueba 1",
+            "precio": 2000,
+            "entregables": []
+        }
+    },
+    {   
+        "model":"servicios.paquetes",
+        "pk": 2,
+        "fields":{
+            "descripcion": "paquete prueba 2",
+            "precio": 4000,
+            "entregables": []
+        }
+    },
+    {   
+        "model":"servicios.paquetes",
+        "pk": 3,
+        "fields":{
+            "descripcion": "paquete prueba 3",
+            "precio": 3000,
+            "entregables": [1,2]
+        }
+    },
+    {   
+        "model": "servicios.paquetes",
+        "pk": 4,
+        "fields":{
+            "descripcion": "paquete prueba 4",
+            "precio": 2500,
+            "entregables": [1]
+        }
+    },
+    {   
+        "model": "servicios.paquetes",
+        "pk": 5,
+        "fields":{
+            "descripcion": "paquete prueba 5",
+            "precio": 2500,
+            "entregables": [1,2,3]
+        }
+    }
+]
