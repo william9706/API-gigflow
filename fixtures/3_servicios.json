@@ -1,0 +1,43 @@
+[
+    {
+        "model":"servicios.servicios",
+        "pk":1,
+        "fields":{
+            "nombre": "servicio de prueba 1",
+            "paquetes": [1]
+        }
+    },
+    {
+        "model":"servicios.servicios",
+        "pk":2,
+        "fields":{
+            "nombre": "servicio de prueba 2",
+            "paquetes": [2,3]
+        }
+    },
+    {
+        "model":"servicios.servicios",
+        "pk":3,
+        "fields":{
+            "nombre": "servicio de prueba 3",
+            "paquetes": []
+        }
+    },
+    {
+        "model":"servicios.servicios",
+        "pk":4,
+        "fields":{
+            "nombre": "servicio de prueba 4",
+            "paquetes": [5]
+        }
+    },
+    {
+        "model":"servicios.servicios",
+        "pk":5,
+        "fields":{
+            "nombre": "servicio de prueba 5",
+            "paquetes": [4,5]
+        }
+    }
+
+]

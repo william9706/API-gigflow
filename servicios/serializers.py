@@ -13,6 +13,13 @@ class EntregableSerializer(serializers.ModelSerializer):
             'id',
             'nombre'
         )
+    
+    def validate(self, data):
+        if data['nombre'] == '':
+            raise serializers.ValidationError(
+                "El campo nombre no puede estar vacio."
+            )
+        return data
 
 
 class PaquetesSerializer(serializers.ModelSerializer):
@@ -124,8 +131,17 @@ class ServicioSerializer(serializers.ModelSerializer):
                 paquete = paquete_qs.first()
             else:
                 paquete = models.Paquetes.objects.create(**paquete_data)
-
             instance.paquetes.add(paquete)
+            
+            for entregable in paquete_data['entregables']:
+                entregable_qs = models.Entregables.objects.filter(
+                    nombre__iexact=entregable['nombre']
+                ) 
+                if entregable_qs.exists():
+                    entregable = entregable_qs.first()
+                else:
+                    entregable = models.Entregables.objects.create(**paquete_data)
+                paquete.entregables.add(entregable)
 
         return instance
     
